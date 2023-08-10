@@ -1,0 +1,75 @@
+{% extends "basic.html" %} 
+{% load static tailwind_tags %}
+{% block title %}
+Products
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% tailwind_css %}
+<header>
+    <nav class="flex-none bg-purple-700 text-white text-xs font-mono sm:flex sm:justify-between sm:h-[3vw] sm:text-2xl">
+        <div class="flex-none pt-4  ml-[40vw] sm:flex sm:items-center sm:ml-[10vw] sm:pb-4 ">
+        <i class="fa-sharp fa-solid fa-cart-shopping fa-lg ml-[10vw]  "></i>
+        </div>
+        <ul class="flex-none ml-[40vw]  p-3 sm:flex sm:items-center sm:mr-[10vw] sm:space-x-11 ">
+            <li><a href="{% url 'index' %}" class="hover:no-underline text-white">Home</a></li>
+            <li><a href="{% url 'contact' %}" class="hover:no-underline text-white">Contactus</a></li>
+            <li><a href="{% url 'dashboard' %}" class="hover:no-underline text-white">Dashboard</a></li>
+            <li><a href="{% url 'addproduct' %}" class="hover:no-underline text-white">Add</a></li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item padd">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+    </nav>
+</header>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning {{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>{{ message }}</strong> 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+{% endfor %}
+{% endif %}
+<main>
+    <div class="container my-5">
+        <table class="table table-striped table-dark table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity in stock</th>
+                    <th scope="col">Quantity Sold</th>
+                    <th scope="col">Cost per item</th>
+                    <th scope="col">Sales</th>
+                    <th scope="col">Stockdate</th>
+                    <th scope="col">last Sales Date</th>
+                    <th scope="col">Details</th>
+                    <th scope="col">Orders</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inventory in inventories %}
+                <tr style="cursor: pointer; cursor: hand;">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ inventory.name }}</td>
+                    <td>{{ inventory.ammount_in_stock }}</td>
+                    <td>{{ inventory.ammount_sold }}</td>
+                    <td>{{ inventory.cost_per_item }}</td>
+                    <td>{{ inventory.sales_of_item }}</td>
+                    <td>{{ inventory.stock_date }}</td>
+                    <td>{{ inventory.last_sales_date }}</td>
+                    <td><button class="btn btn-primary  bg-blue-500" onclick="window.location=`{% url 'per_product' inventory.id %}`">Details</button></td>
+                    <td><button class="btn btn-primary  bg-blue-500" onclick="window.location=`{% url 'ordermessage' inventory.id %}`">Orders</button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

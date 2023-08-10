@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block title %}
+index
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% tailwind_css %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-warning {{ message.tags }} alert-dismissible fade show" role="alert">
+  <strong>{{ message }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+<div class="container flex my-5">
+  <div class=" grid grid-cols-4 gap-2 ">
+    {% for inventory in inventories %}
+    <div class="card m-4" style="width: 18rem;">
+      <h4 class="card-title text-center mt-3">Product Name</h4>
+      <div style="font-size: 10vh;" class="text-center"><span><i class="fa-brands fa-product-hunt"></i></span>
+      </div>
+      <h5 class="text-center">{{ inventory.name }}</h5>
+      <button class="my-3 rounded-lg btn btn-primary w-20 flex self-center text-center"
+        onclick="window.location=`{% url 'per_product' inventory.id %}`">Details</button>
+      <button class="my-2 rounded-lg btn btn-primary w-20 flex self-center text-center"
+        onclick="window.location=`{% url 'order_product' inventory.id %}`">Order</button>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

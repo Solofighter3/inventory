@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+{% block title %}
+Updateitem
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% tailwind_css %}
+<div class="container my-6 bg-green-300 flex justify-center font-mono ">
+    <form method="post" class="w-full w=[15vw] text-lg italic">
+        <fieldset>
+            <legend class="text-center border-bottom my-5">Update item</legend>
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form|crispy }}
+            </div>
+            <div class="form-group flex justify-center">
+                <button class="btn btn-primary btn-lg bg-blue-500" type="submit">Post</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% load static tailwind_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="input.css">
+    {% tailwind_css %}
+</head>
+<body>
+    <h1 class="text-center bg-red-500">You have been logged out</h1> <br>
+    <div class="flex justify-center">
+    <a href="{% url 'login' %}" class=" bg-amber-600">LOG IN AGAIN</a>
+    </div>
+</body>
+</html>

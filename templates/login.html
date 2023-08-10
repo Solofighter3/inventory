@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+{% load static tailwind_tags %}
+{% block title %}
+login
+{% endblock %}
+{% block content %}
+{% load tailwind_filters %}
+{% tailwind_css %}
+<div class="container my-[10vw] bg-green-300 flex justify-center w-[20vw]">
+    <form method="post">
+        <fieldset>
+            <legend class="text-center border-bottom my-5">Login</legend>
+            {% csrf_token %}
+            
+            {{ form|crispy }}
+            <div class="form-group flex justify-center">
+                <button class="btn btn-primary bg-blue-500" type="submit">Login</button>
+            </div>
+            <div class="form-group flex justify-center">
+            <a class="btn btn-primary " href="shop/signup" role="button">Signup</a>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% load tailwind_filters %}
+{% block title %}
+Ordermessage
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% tailwind_css %}
+<div class="container my-5">
+    <div class=" grid grid-cols-3 ">
+        {% for order in orders %}
+        <div class="card m-4" style="width: 18rem;">
+            <h4 class="card-title text-center mt-3 text-lg">Order Name</h4>
+            <div style="font-size: 10vh;" class="text-center"><span><i class="fa fa-box"></i></span>
+            </div>
+            <h5 class="text-center">{{ order.ordername }}</h5>
+            <div class="form-group flex justify-center my-3">
+                <button class="btn btn-primary bg-blue-500">Respond</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

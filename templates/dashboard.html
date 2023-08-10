@@ -1,0 +1,51 @@
+{% extends "base.html" %} 
+{% load static tailwind_tags %}
+{% block title %}
+dashboard
+{% endblock %}
+{% block content %}
+{% load tailwind_filters %}
+{% tailwind_css %}
+<div class="container my-5">
+    <div class="card text-center bg-orange-300 font-mono italic text-2xl" style="width: 90%;">
+        <div class="card-body">
+            <h5 class="card-title">line-graph</h5>
+            <div id="cart"></div>
+        </div>
+        <div class="card-footer text-muted">
+            Newly updated
+        </div>
+    </div>
+
+    <div class="card text-center my-5  bg-red-400 font-mono italic text-2xl" style="width: 90%;">
+        <div class="card-body">
+            <h5 class="card-title">bar-graph</h5>
+            <div id="cart1"></div>
+        </div>
+        <div class="card-footer text-muted">
+            Newly updated
+        </div>
+    </div>
+
+    <div class="card text-center my-5  bg-yellow-400 font-mono italic text-2xl" style="width: 90%;">
+        <div class="card-body">
+            <h5 class="card-title">pie-chart</h5>
+            <div id="cart2"></div>
+        </div>
+        <div class="card-footer text-muted">
+            Newly updated
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+    let graph = {{ salesgraph| safe }}
+    Plotly.plot('cart', graph, {})
+    let graph1 = {{bestperforming| safe }}
+    Plotly.plot('cart1', graph1, {})
+    let graph2 = {{most_items| safe }}
+    Plotly.plot('cart2', graph2, {})
+</script>
+
+{% endblock %}
