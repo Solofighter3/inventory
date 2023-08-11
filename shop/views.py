@@ -149,7 +149,7 @@ def ordermessage(request,pk):
 
 @login_required
 def details(request):
-    items=YourItem.objects.all()
+    items=YourItem.objects.filter(user=request.user)
     df=read_frame(items)
     salesgraph=df.groupby(by="last_sales_date",as_index=False,sort=False)['sales_of_item'].sum()
     salesgraph=px.line(salesgraph,x=salesgraph.last_sales_date,y=salesgraph.sales_of_item,title="sales trend")
