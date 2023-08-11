@@ -28,6 +28,8 @@ index
         onclick="window.location=`{% url 'per_product' inventory.id %}`">Details</button>
       <button class="my-2 rounded-lg btn btn-primary w-20 flex self-center text-center"
         onclick="window.location=`{% url 'order_product' inventory.id %}`">Order</button>
+      <button class="my-2 rounded-lg btn btn-primary  w-30 flex self-center text-center"
+        onclick="window.location=`{% url 'ordermessage' inventory.id %}`">Response</button>
     </div>
     {% endfor %}
   </div>

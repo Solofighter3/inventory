@@ -138,13 +138,16 @@ def orders(request,pk):
 @login_required
 def ordermessage(request,pk):
     invent=get_object_or_404(YourItem,pk=pk)
-    order=Orders.objects.filter(product_ordered=invent)
-    for i in order:
-        print(i.ordername)
-    context={
-        'orders':order
-    }
-
+    if Orders.objects.filter(product_ordered=invent).exists():
+        order=Orders.objects.filter(product_ordered=invent)
+        for i in order:
+           print(i.ordername)
+           context={
+           'orders':order
+            }
+    else:
+        messages.success(request, "Order the product to get response")
+        return redirect("index")
     return render(request,"ordermsg.html",context=context)
 
 @login_required
