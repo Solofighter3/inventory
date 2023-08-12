@@ -65,7 +65,7 @@ Products
                     <td>{{ inventory.stock_date }}</td>
                     <td>{{ inventory.last_sales_date }}</td>
                     <td><button class="btn btn-primary  bg-blue-500" onclick="window.location=`{% url 'per_product' inventory.id %}`">Details</button></td>
-                    <td><button class="btn btn-primary  bg-blue-500" onclick="window.location=`{% url 'ordermessage' inventory.id %}`">Orders</button></td>
+                    <td><button class="btn btn-primary  bg-blue-500" onclick="window.location=`{% url 'ordermessages' inventory.id %}`">Orders</button></td>
                 </tr>
                 {% endfor %}
             </tbody>

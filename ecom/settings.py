@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'shop',
     'tailwind',
     'theme',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ecom.wsgi.application'
+ASGI_APPLICATION = 'ecom.asgi.application'
+CHANNEL_LAYERS={
+        'default':{
+            'BACKEND':'channels.layers.InMemoryChannelLayer'
+            }
+        }
 
 
 # Database

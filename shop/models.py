@@ -36,6 +36,16 @@ class Orders(models.Model):
 
 
 
+class Room(models.Model):
+    name=models.ForeignKey(Orders,on_delete=models.CASCADE)
+    slug=models.IntegerField(unique=True)
 
 
 
+class Message(models.Model):
+    room=models.ForeignKey(Room,related_name='messages',on_delete=models.CASCADE)
+    user=models.ForeignKey(User,related_name='messages',on_delete=models.CASCADE)
+    content=models.TextField()
+    date_added=models.DateTimeField(auto_now_add=True)
+    class Meta:
+        ordering=('date_added',)

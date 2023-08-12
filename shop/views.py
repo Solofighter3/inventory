@@ -3,7 +3,7 @@ from .forms import SignUpForm
 from django.contrib.auth import login,logout,authenticate
 from .forms import ContactForm,Itemfield,Orderform
 from django.contrib import messages
-from .models import YourItem,Orders
+from .models import YourItem,Orders,Room,Message
 from django.contrib.auth.decorators import login_required
 from django_pandas.io import read_frame
 import plotly.express as px
@@ -138,6 +138,21 @@ def orders(request,pk):
 @login_required
 def ordermessage(request,pk):
     invent=get_object_or_404(YourItem,pk=pk)
+    if Orders.objects.filter(product_ordered=invent,Orderer_Username=request.user).exists():
+        order=Orders.objects.filter(product_ordered=invent,Orderer_Username=request.user)
+        for i in order:
+           print(i.ordername)
+           context={
+           'orders':order
+            }
+    else:
+        messages.success(request, "Order the product to get response")
+        return redirect("index")
+    return render(request,"ordermsg.html",context=context)
+
+@login_required
+def ordermessagead(request,pk):
+    invent=get_object_or_404(YourItem,pk=pk)
     if Orders.objects.filter(product_ordered=invent).exists():
         order=Orders.objects.filter(product_ordered=invent)
         for i in order:
@@ -149,7 +164,6 @@ def ordermessage(request,pk):
         messages.success(request, "Order the product to get response")
         return redirect("index")
     return render(request,"ordermsg.html",context=context)
-
 @login_required
 def details(request):
     items=YourItem.objects.filter(user=request.user)
@@ -172,3 +186,17 @@ def details(request):
     }
     
     return render(request,"dashboard.html",context=context)
+
+@login_required
+def messageser(request,id):
+    order=Orders.objects.get(pk=id)
+    print(order)
+    val=[c.slug for c in Room.objects.all()]
+    if id not in val:
+         room=Room.objects.create(name=order,slug=id)
+    else:
+        room=Room.objects.get(name=order,slug=id)
+        messages=Message.objects.filter(room=room)[0:25]
+
+   
+    return render(request,"chat.html",{"room_name":id,"messages":messages})

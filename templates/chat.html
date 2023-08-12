@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static tailwind_tags %}
+{% block title %}
+Chat
+{% endblock %}
+{% block content %}
+{% load tailwind_filters %}
+{% tailwind_css %}
+{{ request.user.username|json_script:"json-username"}}
+{{ room_name|json_script:"room-name" }}
+
+<div class="container my-[20vh] bg-green-300 flex-col justify-center font-mono border box-border rounded-lg">
+      <legend class="text-center border-bottom my-5">Chat</legend>
+      {% csrf_token %}
+      <div class="flex justify-center">
+        <div class="sm:w-[50vw] p-3 bg-white rounded-xl flex self-center">
+          <div class="chat-messages space-y-3" id="messages">
+            {% for m in messages %}<b>{{ m.user.username }}</b>: {{ m.content }}<br>{% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <div class="sm:w-[50vw] mt-6 mx-4 lg:mx-auto p-4 bg-white rounded-xl sm:mb-4">
+          <form method="post" class="flex" id="form">
+            <input type="text" name="message"
+              class=" bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-[40vw] inline p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 "
+              placeholder="Your message...">
+            <button class="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 " type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+</div>
+
+
+<script>
+  const userName = JSON.parse(document.getElementById("json-username").textContent)
+  //As soon as someone enters into our stocks page WebSocket communication
+  //will be started between user and server.
+  const roomName = JSON.parse(document.getElementById("room-name").textContent)
+  let url = `ws://${window.location.host}/ws/${roomName}/`
+  const chatsocket = new WebSocket(url);
+  chatsocket.onmessage = function (e) {
+    let data = JSON.parse(e.data)
+    if (data.type == 'text') {
+      let messages = document.getElementById("messages")
+      messages.innerHTML += ('<div class="alert alert-primary" role="alert">' + '<b>' + data.username + '</b>:' + data.message + '<br> </div>')
+    }
+  }
+
+  let form = document.getElementById('form')
+  form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let message = e.target.message.value
+    chatsocket.send(JSON.stringify({
+      'message': message,
+      "username": userName,
+      "roomname": roomName
+    }))
+    form.reset()
+  })
+
+
+</script>
+{% endblock %}
