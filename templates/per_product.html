@@ -9,46 +9,46 @@ per_product
 {% tailwind_css %}
 <div class="container my-5">
     <div class=" grid grid-cols-3 ">
-        <div class="card m-4" style="width: 18rem;">
+        <div class="card m-4 card-style" style="width: 18rem;">
             <h4 class="card-title text-center mt-3">Product Name</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i class="fa-brands fa-product-hunt"></i></span>
             </div>
             <h5 class="text-center">{{ inventory.name }}</h5>
         </div>
 
-        <div class="card m-4" style="width: 18rem;">
+        <div class="card m-4 card-style" style="width: 18rem;">
             <h4 class="card-title text-center mt-3">Cost_per_item</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i class="fa-solid fa-dollar-sign"></i></span>
             </div>
             <h5 class="text-center">{{ inventory.cost_per_item }}</h5>
         </div>
 
-        <div class="card m-4" style="width: 18rem;">
+        <div class="card m-4 card-style" style="width: 18rem;">
             <h4 class="card-title text-center mt-3">ammount_in_stock</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i class="fa fa-box"></i></span>
             </div>
             <h5 class="text-center">{{ inventory.ammount_in_stock}}</h5>
         </div>
-        <div class="card m-4" style="width: 18rem;">
+        <div class="card m-4 card-style" style="width: 18rem;">
             <h4 class="card-title text-center mt-3">ammount_sold</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i class="fa-solid fa-shop"></i></span>
             </div>
             <h5 class="text-center">{{ inventory.ammount_sold}}</h5>
         </div>
-        <div class="card m-4" style="width: 18rem;">
+        <div class="card m-4 card-style" style="width: 18rem;">
             <h4 class="card-title text-center mt-3">sales</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i class="fa-solid fa-arrow-trend-up"></i></span>
             </div>
             <h5 class="text-center">{{ inventory.sales_of_item}}</h5>
         </div>
-        <div class="card m-4" style="width: 18rem;">
+        <div class="card m-4 card-style" style="width: 18rem;">
             <h4 class="card-title text-center mt-3">stock_date</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i
                         class="fa-sharp fa-solid fa-calendar-days"></i></span>
             </div>
             <h5 class="text-center">{{ inventory.stock_date}}</h5>
         </div>
-        <div class="card m-4" style="width: 18rem; ">
+        <div class="card m-4 card-style" style="width: 18rem; ">
             <h4 class="card-title text-center mt-3">last_sales_date</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i
                         class="fa-sharp fa-solid fa-calendar-days"></i></span>
@@ -57,8 +57,8 @@ per_product
         </div>
     </div>
     <div class="flex-col">
-        <button class="btn btn-primary btn-lg btn-block bg-blue-500" onclick="window.location=`{% url 'delete_item' inventory.id %}`">Deleteitem</button>
-        <button class="btn btn-primary btn-lg btn-block bg-blue-500" onclick="window.location=`{% url 'update_item' inventory.id %}`">Updateitem</button>
+        <button class="btn btn-primary btn-lg btn-block bg-red-600 hover:bg-red-700" onclick="window.location=`{% url 'delete_item' inventory.id %}`">Deleteitem</button>
+        <button class="btn btn-primary btn-lg btn-block bg-green-600 hover:bg-green-700" onclick="window.location=`{% url 'update_item' inventory.id %}`">Updateitem</button>
     </div>
 </div>
 {% endblock %}

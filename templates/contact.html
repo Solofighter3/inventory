@@ -16,7 +16,7 @@ Contact
   </div>
 {% endfor %}
 {% endif %}
-<div class="container my-6 bg-green-300 flex justify-center font-mono ">
+<div class="container my-6 bg-green-300 rounded-3xl flex justify-center font-mono ">
     <form method="post" class="w-full w=[15vw] text-lg italic">
         <fieldset>
             <legend class="text-center border-bottom my-5">Contactus</legend>
@@ -25,7 +25,7 @@ Contact
                 {{ form|crispy }}
             </div>
             <div class="form-group flex justify-center">
-                <button class="btn btn-primary btn-lg bg-blue-500" type="submit">Post</button>
+                <button class="btn bg-blue-500 hover:bg-blue-600 w-[8vw]" type="submit">Post</button>
             </div>
         </fieldset>
     </form>

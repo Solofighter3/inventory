@@ -50,7 +50,7 @@ def contact(request):
         contacts=ContactForm()
     return render(request,"contact.html",{'form':contacts})
 
-
+@login_required
 def products(request):
     user=request.user
     context={
@@ -59,6 +59,7 @@ def products(request):
 
     return render(request,"userproducts.html",context=context)
 
+@login_required
 def per_product(request,pk):
     inventory=get_object_or_404(YourItem,pk=pk)
     context={
