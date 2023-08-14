@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import SignUpForm
 from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.models import User
 from .forms import ContactForm,Itemfield,Orderform
 from django.contrib import messages
 from .models import YourItem,Orders,Room,Message
@@ -9,8 +10,10 @@ from django_pandas.io import read_frame
 import plotly.express as px
 import plotly
 import json
-
+from .tasks import send_mails,send_mails1,send_mails2,send_mails3
+from django.core import serializers
 # Create your views here.
+@login_required
 def index(request):
     context={
         "inventories": YourItem.objects.all()
@@ -31,7 +34,10 @@ def register(request):
 
             # login user after signing up
             user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
+            login(request, user) 
+            users=User.objects.filter(username=user.username)
+            datastr=serializers.serialize('json',users)
+            send_mails.delay(datastr)
 
             # redirect user to home page
             return redirect('index')
@@ -78,6 +84,10 @@ def addtoinvent(request):
            newinvent.sales_of_item=float(addinvent.data['cost_per_item']) * float(addinvent.data["ammount_sold"])
            newinvent.save()
            messages.success(request, "Product is added")
+           users=User.objects.filter(username=request.user.username)
+           datastr=serializers.serialize('json',users)
+           send_mails1.delay(datastr)
+
            return redirect("myproducts")
     else:
         addinvent=Itemfield()
@@ -89,6 +99,9 @@ def delete_item(request,pk):
     if request.user==item.user:
        item.delete()
        messages.success(request, "Product is deleted")
+       users=User.objects.filter(username=item.user.username)
+       datastr=serializers.serialize('json',users)
+       send_mails2.delay(datastr)
     else:
         messages.success(request, "You cannot delete this product")
         return redirect('index')
@@ -131,6 +144,9 @@ def orders(request,pk):
            Orderinventnew.product_ordered=invent
            Orderinventnew.save()
            messages.success(request, "Product is ordered")
+           users=User.objects.filter(username=invent.user.username)
+           datastr=serializers.serialize('json',users)
+           send_mails3.delay(datastr)
            return redirect("index")
     else:
         Orderinvent=Orderform(initial={'Orderer_Username':request.user,'product_ordered':invent})
