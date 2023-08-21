@@ -8,7 +8,7 @@ per_product
 {% load crispy_forms_tags %}
 {% tailwind_css %}
 <div class="container my-5">
-    <div class=" grid grid-cols-3 ">
+    <div class="grid-style">
         <div class="card m-4 card-style" style="width: 18rem;">
             <h4 class="card-title text-center mt-3">Product Name</h4>
             <div style="font-size: 10vh;" class="text-center"><span><i class="fa-brands fa-product-hunt"></i></span>
@@ -56,9 +56,11 @@ per_product
             <h5 class="text-center">{{ inventory.last_sales_date}}</h5>
         </div>
     </div>
+    {% if inventory.user == request.user %}
     <div class="flex-col">
         <button class="btn btn-primary btn-lg btn-block bg-red-600 hover:bg-red-700" onclick="window.location=`{% url 'delete_item' inventory.id %}`">Deleteitem</button>
         <button class="btn btn-primary btn-lg btn-block bg-green-600 hover:bg-green-700" onclick="window.location=`{% url 'update_item' inventory.id %}`">Updateitem</button>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

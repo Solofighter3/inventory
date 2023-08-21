@@ -163,7 +163,7 @@ def ordermessage(request,pk):
            'orders':order
             }
     else:
-        messages.success(request, "Order the product to get response")
+        messages.success(request, "Order product to get response")
         return redirect("index")
     return render(request,"ordermsg.html",context=context)
 
@@ -178,7 +178,7 @@ def ordermessagead(request,pk):
            'orders':order
             }
     else:
-        messages.success(request, "Order the product to get response")
+        messages.success(request, "Order product to get response")
         return redirect("index")
     return render(request,"ordermsg.html",context=context)
 @login_required
@@ -194,7 +194,7 @@ def details(request):
     best_performing=json.dumps(best_performing,cls=plotly.utils.PlotlyJSONEncoder)
 
     most_items=df.groupby(by='name').sum().sort_values(by='ammount_in_stock')
-    most_items=px.pie(most_items,names=most_items.index,values=most_items.ammount_in_stock,title="most product")
+    most_items=px.pie(most_items,names=most_items.index,values=most_items.ammount_in_stock,title="most sold product")
     most_items=json.dumps(most_items,cls=plotly.utils.PlotlyJSONEncoder)
     context={
         'salesgraph':salesgraph,
@@ -207,13 +207,17 @@ def details(request):
 @login_required
 def messageser(request,id):
     order=Orders.objects.get(pk=id)
-    print(order)
-    val=[c.slug for c in Room.objects.all()]
-    if id not in val:
-         room=Room.objects.create(name=order,slug=id)
-    else:
+    
+    if Room.objects.filter(name=order,slug=id).exists():
         room=Room.objects.get(name=order,slug=id)
+        if Message.objects.filter(room=room):
+             messages=Message.objects.filter(room=room)[0:25]
+        else:
+            messages=[]
+    else:
+        room=Room.objects.create(name=order,slug=id)
+        room.save()
+        messages=None
         messages=Message.objects.filter(room=room)[0:25]
-
    
     return render(request,"chat.html",{"room_name":id,"messages":messages})

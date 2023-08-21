@@ -15,7 +15,9 @@ Chat
       <div class="flex justify-center">
         <div class="sm:w-[50vw] p-3 bg-white rounded-xl flex self-center">
           <div class="chat-messages space-y-3" id="messages">
+            {% if messages %}
             {% for m in messages %}<b>{{ m.user.username }}</b>: {{ m.content }}<br>{% endfor %}
+            {% endif %}
           </div>
         </div>
       </div>
