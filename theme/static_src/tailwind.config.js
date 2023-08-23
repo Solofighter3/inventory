@@ -53,7 +53,16 @@ module.exports = {
         extend: {
             margin: {
                 '10vw': '10vw',
-            }
+            },
+            animation: {
+                typing: "typing 2s steps(14)",
+            },
+            keyframes: {
+                typing: {
+                    from: { width: "0" },
+                    to: { width: "25ch" }
+                  },
+            },
         },
     },
     plugins: [

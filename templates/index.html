@@ -16,8 +16,11 @@ index
 </div>
 {% endfor %}
 {% endif %}
-<div class="container flex my-5">
-  <div class=" grid-style lg:grid-cols-4 lg:gap-2">
+<div class="container flex flex-col my-5">
+<div class="flex justify-center">
+  <h1 class="text-3xl overflow-hidden hidden sm:block whitespace-nowrap animate-typing">All products are here</h1>
+</div>
+  <div class="md:grid-style xl:grid-cols-4 flex flex-col items-center">
     {% for inventory in inventories %}
     <div class="card m-4 bg-blue-300 rounded-3xl box-border p-3 border-solid border-orange-700" style="width: 18rem;">
       <h4 class="card-title text-center mt-3">Product Name</h4>

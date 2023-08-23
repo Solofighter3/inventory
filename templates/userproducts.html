@@ -1,4 +1,4 @@
-{% extends "basic.html" %} 
+{% extends "basic.html" %}
 {% load static tailwind_tags %}
 {% block title %}
 Products
@@ -7,18 +7,20 @@ Products
 {% load crispy_forms_tags %}
 {% tailwind_css %}
 <header>
-    <nav class="flex-none bg-purple-700 text-white text-xs font-mono sm:flex sm:justify-between sm:h-[3vw] sm:text-2xl">
-        <div class="flex-none pt-4  ml-[40vw] sm:flex sm:items-center sm:ml-[10vw] sm:pb-4 ">
-        <i class="fa-sharp fa-solid fa-cart-shopping fa-lg ml-[10vw]  "></i>
+    <nav
+        class="flex flex-col bg-purple-700 text-white text-1xl p-2 w-full sm:flex sm:flex-row sm:items-center sm:justify-center sm:p-5 sm:space-x-5 sm:text-1xl md:flex md:text-2xl md:justify-center xl:flex xl:justify-between font-mono box-border ">
+        <div class="flex items-center justify-center my-4 sm:my-0 sm:flex md:flex md:my-0 md:ml-[10vw]">
+            <i class="fa-sharp fa-solid fa-cart-shopping fa-lg"></i>
         </div>
-        <ul class="flex-none ml-[40vw]  p-3 sm:flex sm:items-center sm:mr-[10vw] sm:space-x-11 ">
+        <ul
+            class="flex flex-col items-center space-y-2 sm:flex sm:space-y-0 sm:flex-row sm:space-x-5 sm:mr-[10vw] md:flex md:space-y-0 xl:space-y-0 xl:flex xl:w-[51%] xl:space-x-11 ">
             <li><a href="{% url 'index' %}" class="hover:no-underline text-white">Home</a></li>
             <li><a href="{% url 'contact' %}" class="hover:no-underline text-white">Contactus</a></li>
             <li><a href="{% url 'dashboard' %}" class="hover:no-underline text-white">Dashboard</a></li>
             <li><a href="{% url 'addproduct' %}" class="hover:no-underline text-white">Add</a></li>
             {% if request.user.is_authenticated %}
-            <li class="nav-item padd">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            <li>
+                <a href="{% url 'logout' %}" class="hover:no-underline">Logout</a>
             </li>
             {% endif %}
 
@@ -29,19 +31,19 @@ Products
 {% if messages %}
 {% for message in messages %}
 <div class="alert alert-warning {{ message.tags }} alert-dismissible fade show" role="alert">
-    <strong>{{ message }}</strong> 
+    <strong>{{ message }}</strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true">&times;</span>
     </button>
-  </div>
+</div>
 {% endfor %}
 {% endif %}
 <main>
-    <div class="container my-5">
-        <table class="table table-striped table-dark table-bordered">
+    <div class="container my-5 w-full box-border overflow-scroll hidden md:block">
+        <table class="table table-striped table-dark table-bordered overflow-scroll ">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">S.No</th>
                     <th scope="col">Name</th>
                     <th scope="col">Quantity in stock</th>
                     <th scope="col">Quantity Sold</th>
@@ -55,7 +57,7 @@ Products
             </thead>
             <tbody>
                 {% for inventory in inventories %}
-                <tr style="cursor: pointer; cursor: hand;">
+                <tr style="cursor: pointer; cursor: hand;" class="text-center">
                     <td>{{ forloop.counter }}</td>
                     <td>{{ inventory.name }}</td>
                     <td>{{ inventory.ammount_in_stock }}</td>
@@ -64,16 +66,45 @@ Products
                     <td>{{ inventory.sales_of_item }}</td>
                     <td>{{ inventory.stock_date }}</td>
                     <td>{{ inventory.last_sales_date }}</td>
-                    <td><button class="btn btn-primary  bg-green-600 hover:bg-green-700" onclick="window.location=`{% url 'per_product' inventory.id %}`">Details</button></td>
-                    <td><button class="btn flex self-center bg-orange-500 hover:bg-orange-600"
-                        onclick="window.location=`{% url 'ordermessages' inventory.id %}`">
-                        <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
-                          <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
-                        </svg>Order</button></td>
+                    <td><button class="btn  bg-green-600 hover:bg-green-700"
+                            onclick="window.location=`{% url 'per_product' inventory.id %}`">Details</button></td>
+                    <td><button class="btn  bg-orange-500 hover:bg-orange-600"
+                            onclick="window.location=`{% url 'ordermessages' inventory.id %}`">
+                            <svg class="w-3.5 h-3.5 mr-2 inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="currentColor" viewBox="0 0 18 21">
+                                <path
+                                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                            </svg>Orders</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
     </div>
 
+    <div class="container flex flex-col justify-center my-5 md:hidden">
+        <div class="flex justify-center">
+            <h1 class="text-3xl overflow-hidden hidden sm:block whitespace-nowrap animate-typing">Your products are here</h1>
+        </div>
+        <div class="flex flex-col justify-center items-center">
+            {% for inventory in inventories %}
+            <div class="card m-4 bg-blue-300 rounded-3xl box-border p-3 border-solid border-orange-700 w-[18rem] ">
+                <h4 class="card-title text-center mt-3">Product Name</h4>
+                <div style="font-size: 10vh;" class="text-center"><span><i class="fa-brands fa-product-hunt"></i></span>
+                </div>
+                <h5 class="text-center">{{ inventory.name }}</h5>
+                <button class="my-2 flex self-center btn bg-green-700 hover:bg-green-800"
+                    onclick="window.location=`{% url 'per_product' inventory.id %}`">Details</button>
+                <button class="btn flex self-center bg-orange-500 hover:bg-orange-600"
+                    onclick="window.location=`{% url 'ordermessages' inventory.id %}`">
+                    <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 18 21">
+                        <path
+                            d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                    </svg>Orders</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
 {% endblock %}

@@ -6,12 +6,12 @@ import json
 import ast
 @shared_task(bind=True)
 def send_mails(self,users):
-    print('hi')
     res = json.loads(users)
     for user in res:
         mail_subject="Message"
         message="Welcome:You are now part of our community"
         to_email=user["fields"]["email"]
+        print(to_email)
         send_mail(subject=mail_subject,
                 message=message,
                 recipient_list=[to_email],

@@ -10,9 +10,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <title> {% block title %} {% endblock %} </title>
   </head>
-  <body class="font-mono">
+  <body class="font-mono bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% flex flex-col min-h-screen ">
   
   {% block content %}{% endblock %}
+  <footer class="h-10 mt-auto">
+    <div class=" p-6 text-center text-white dark:bg-neutral-700 font-mono bg-fuchsia-900 ">
+      <span>© 2023 Copyright:</span>
+      <a
+        class="font-semibold "
+        >All rights reserved</a
+      >
+    </div>
+  </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

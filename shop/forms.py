@@ -31,4 +31,4 @@ class Itemfield(ModelForm):
 class Orderform(ModelForm):
     class Meta:
         model=Orders
-        fields=['ordername','Orderer_Username','orderer_phoneno','order_location','product_ordered']
+        fields=['ordername','orderer_phoneno','order_location','product_ordered']

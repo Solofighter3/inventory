@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u(9$%uf2f+36@==--j7*n!zyyjasbt%g!&^#vg8-!bkv7b3d*r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','sampledomain.com']
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -164,8 +165,8 @@ CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'
 #SMTP specifications in django
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS=True
-EMAIL_HOST_USER="anishsharma567889@gmail.com"#From which email id I want to send mails
+EMAIL_HOST_USER="adinulas4556@gmail.com"#From which email id I want to send mails
 EMAIL_HOST='smtp.gmail.com'#Who will send mails
 EMAIL_PORT=587
-EMAIL_HOST_PASSWORD="vjnjwszurykerjbo"
-DEFAULT_FROM_EMAIL="Celery <anishsharma567889@gmail.com>"
+EMAIL_HOST_PASSWORD="hjadxmxnuthsejqq"
+DEFAULT_FROM_EMAIL="Celery <adinulas4556@gmail.com>"

@@ -10,20 +10,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <title> {% block title %} {% endblock %} </title>
   </head>
-  <body class="font-mono">
+  <body class="font-mono bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex flex-col min-h-screen">
     <header>
-      <nav class="flex-none sm:bg-purple-700 bg-purple-600 text-white text-xs font-mono sm:flex sm:justify-between sm:h-[3vw] sm:text-2xl xsm:bg-rose-500">
-          <div class="flex-none pt-4  ml-[40vw] sm:flex sm:items-center sm:ml-[10vw] sm:pb-4 ">
-          <i class="fa-sharp fa-solid fa-cart-shopping fa-lg ml-[10vw]  "></i>
+      <nav class="flex flex-col  p-3 sm:bg-purple-700 bg-purple-600 text-white w-full sm:flex sm:flex-row sm:items-center sm:justify-center sm:p-5 sm:space-x-5 sm:text-1xl md:flex md:text-2xl md:justify-center xl:flex xl:justify-between font-mono  xsm:bg-rose-500 ">
+          <div class="flex items-center justify-center my-4 sm:my-0 sm:flex md:flex md:my-0 md:ml-[10vw]">
+          <i class="fa-sharp fa-solid fa-cart-shopping fa-lg"></i>
           </div>
-          <ul class="flex-none ml-[40vw]  p-3 sm:flex sm:items-center sm:mr-[10vw] sm:space-x-11 ">
-              <li><a href="{% url 'index' %}" class="hover:no-underline text-white">Home</a></li>
+          <ul class="flex flex-col items-center space-y-2 sm:flex sm:space-y-0 sm:flex-row sm:space-x-5 sm:mr-[10vw] md:flex md:space-y-0 xl:space-y-0 xl:flex xl:w-[51%] xl:space-x-11">
               <li><a href="{% url 'contact' %}" class="hover:no-underline text-white">Contactus</a></li>
+              <li><a href="{% url 'index' %}" class="hover:no-underline text-white">Home</a></li>
               <li><a href="{% url 'myproducts' %}" class="hover:no-underline text-white">YourProducts</a></li>
               <li><a href="{% url 'addproduct' %}" class="hover:no-underline text-white">Add</a></li>
               {% if request.user.is_authenticated %}
-              <li class="nav-item padd">
-                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+              <li class="hover:no-underline">
+                  <a href="{% url 'logout' %}">Logout</a>
               </li>
               {% endif %}
   
@@ -31,8 +31,18 @@
 
       </nav>
   </header>
+
   
   {% block content %}{% endblock %}
+  <footer class="h-10 bg-blue-500 mt-auto">
+    <div class=" p-6 text-center text-white dark:bg-neutral-700 font-mono bg-fuchsia-900 ">
+      <span>© 2023 Copyright:</span>
+      <a
+        class="font-semibold "
+        >All rights reserved</a
+      >
+    </div>
+  </footer>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
