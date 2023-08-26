@@ -161,7 +161,6 @@ CELERY_TASK_SERIALIZER='json'
 CELERY_TIMEZONE="Asia/Kathmandu"
 CELERY_RESULT_BACKEND='django-db'#Stores celery result in django-db
 CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'
-
 #SMTP specifications in django
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS=True
